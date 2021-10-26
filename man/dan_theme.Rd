@@ -4,10 +4,10 @@
 \alias{dan_theme}
 \title{dan_theme}
 \usage{
-dan_theme(ggp_object)
+dan_theme(src = "Própria")
 }
 \arguments{
-\item{ggp_object}{ggplot2 object}
+\item{src}{Data Source}
 }
 \value{
 ggplot2 custom theme
