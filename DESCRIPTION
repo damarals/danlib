@@ -17,3 +17,5 @@ Imports:
     ggplot2,
     showtext,
     sysfonts
+URL: https://github.com/damarals/danlib
+BugReports: https://github.com/damarals/danlib/issues
