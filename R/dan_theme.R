@@ -7,8 +7,7 @@
 #' @importFrom sysfonts font_add_google font_families
 #' @importFrom showtext showtext_auto
 #' @importFrom purrr walk
-#' @importFrom glue glue
-#' @importFrom ggplot2 theme_light theme element_text element_blank labs
+#' @importFrom ggplot2 theme_light theme element_text element_blank
 dan_theme <- function() {
   fonts <- c("Poppins", "Roboto Mono")
   walk(fonts, \(fnt) {
