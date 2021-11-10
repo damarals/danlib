@@ -2,12 +2,9 @@
 % Please edit documentation in R/dan_theme.R
 \name{dan_theme}
 \alias{dan_theme}
-\title{dan_theme}
+\title{Personal theme}
 \usage{
-dan_theme(src = "Própria")
-}
-\arguments{
-\item{src}{Data Source}
+dan_theme()
 }
 \value{
 ggplot2 custom theme

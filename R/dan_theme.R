@@ -1,4 +1,4 @@
-#' dan_theme
+#' Personal theme
 #'
 #' Minimal ggplot2 theme using the Poppins and Roboto Mono fonts
 #'
