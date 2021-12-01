@@ -4,7 +4,8 @@
 #'
 #' @return NULL
 #' @param time_focus focus time in minutes
-#' @param time_break break time in minutes
+#' @param short_break short break time in minutes
+#' @param long_break long break time in minutes
 #' @export
 #' @importFrom rstudioapi jobRunScript executeCommand
 pomodoro <- function(time_focus = 25, short_break = 5, long_break = 15) {

@@ -16,8 +16,6 @@ RoxygenNote: 7.1.2
 Imports: 
     beepr,
     ggplot2,
-    glue,
-    job,
     purrr,
     rstudioapi,
     showtext,

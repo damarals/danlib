@@ -4,12 +4,14 @@
 \alias{pomodoro}
 \title{Pomodoro timer}
 \usage{
-pomodoro(time_focus = 25, time_break = 5)
+pomodoro(time_focus = 25, short_break = 5, long_break = 15)
 }
 \arguments{
 \item{time_focus}{focus time in minutes}
 
-\item{time_break}{break time in minutes}
+\item{short_break}{short break time in minutes}
+
+\item{long_break}{long break time in minutes}
 }
 \description{
 Pomodoro timer that runs as a background job
