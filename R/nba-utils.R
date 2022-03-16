@@ -141,7 +141,7 @@ geom_nba_backboard <- function(size_backboard = 1.3, size = 0.2, ...) {
 #' @export
 theme_nba_court <- function() {
   list(
-    ggplot2::coord_fixed(ylim = c(0, 45), xlim = c(-25, 25)),
+    ggplot2::coord_fixed(ylim = c(-4.5, 45), xlim = c(-23.5, 23.5), clip = "off"),
     ggplot2::theme_minimal(base_size = 22),
     ggplot2::theme(plot.background = ggplot2::element_rect(fill = 'white', color = 'white'),
                    panel.background = ggplot2::element_rect(fill = "white", color = "white"),
