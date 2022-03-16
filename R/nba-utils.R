@@ -121,15 +121,15 @@ geom_nba_court <- function(...) {
 #'
 #' @return a \code{list} of \code{ggproto} objects
 #' @export
-geom_nba_backboard <- function(size_backboard = 1.3, ...) {
+geom_nba_backboard <- function(size_backboard = 1.3, size = 0.2, ...) {
   backboard <- nba_backboard_path()
   list(
     ggplot2::geom_path(ggplot2::aes(x = x, y = y, group = desc),
-                       data = backboard[[1]], size = size_backboard),
+                       data = backboard[[1]], size = size_backboard, ...),
     ggplot2::geom_path(ggplot2::aes(x = x, y = y, group = desc),
-                       data = backboard[[2]], ...),
+                       data = backboard[[2]], size = size, ...),
     ggplot2::geom_path(ggplot2::aes(x = x, y = y, group = desc),
-                       data = backboard[[3]], ...)
+                       data = backboard[[3]], size = size, ...)
   )
 }
 
