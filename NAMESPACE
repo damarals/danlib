@@ -2,9 +2,12 @@
 
 export("%>%")
 export(calculate_hex_coords)
+export(circle_points)
 export(dan_theme)
+export(geom_nba_backboard)
 export(geom_nba_court)
 export(hex_bounds)
+export(nba_backboard_path)
 export(nba_court_path)
 export(shots2hexbins)
 export(theme_nba_court)

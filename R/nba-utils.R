@@ -1,3 +1,15 @@
+#' Draw a circle
+#'
+#' Function to draw a circle based on a center and radius
+#'
+#' @return a \code{data.frame}
+#' @export
+circle_points <- function(center = c(0, 0), radius = 1, npoints = 360) {
+  angles <- seq(0, 2 * pi, length.out = npoints)
+  return(data.frame(x = center[1] + radius * cos(angles),
+                    y = center[2] + radius * sin(angles)))
+}
+
 #' NBA Basketball Court Paths
 #'
 #' Get the paths to plot the basketball nba court
@@ -5,11 +17,6 @@
 #' @return a \code{data.frame}
 #' @export
 nba_court_path <- function() {
-  circle_points <- function(center = c(0, 0), radius = 1, npoints = 360) {
-    angles <- seq(0, 2 * pi, length.out = npoints)
-    return(data.frame(x = center[1] + radius * cos(angles),
-                      y = center[2] + radius * sin(angles)))
-  }
   width <- 50
   height <- 94/2
   key_height <- 19
@@ -66,7 +73,33 @@ nba_court_path <- function() {
                                  y = c(0, three_point_side_height, three_point_circle$y,
                                        three_point_side_height, 0), desc = "three_point_line")
 
-  rbind(court_points, foul_circle_top, foul_circle_bottom, hoop, restricted, three_point_line)
+  rbind(court_points, foul_circle_top, foul_circle_bottom, hoop, restricted,three_point_line)
+}
+
+#' NBA Basketball Backboard Geom Path
+#'
+#' Get the geom_paths to plot the basketball nba backboard
+#' in a ggplot2 object
+#'
+#' @return a \code{ggproto} object
+#' @export
+nba_backboard_path <- function() {
+  backboard_width <- 6
+  backboard_offset <- 4
+  neck_length <- 0.5
+  hoop_radius <- 0.75
+  hoop_center_y <- backboard_offset + neck_length + hoop_radius
+
+  backboard <- data.frame(x = c(-backboard_width/2, backboard_width/2),
+                          y = c(backboard_offset, backboard_offset),
+                          desc = "perimeter")
+  neck <- data.frame(x = c(0, 0),
+                     y = c(backboard_offset, backboard_offset + neck_length),
+                     desc = "neck")
+  hoop <- circle_points(center = c(0, hoop_center_y), radius = hoop_radius) %>%
+    dplyr::mutate(desc = "hoop")
+
+  list(backboard, neck, hoop)
 }
 
 #' NBA Basketball Court GGplot2 Geom Path
@@ -79,6 +112,25 @@ nba_court_path <- function() {
 geom_nba_court <- function(...) {
   ggplot2::geom_path(ggplot2::aes(x = x, y = y, group = desc),
                      data = nba_court_path(), ...)
+}
+
+#' NBA Basketball Backboard GGplot2 Geom Path
+#'
+#' Get the geom_paths to plot the basketball nba backboard
+#' in a ggplot2 object
+#'
+#' @return a \code{list} of \code{ggproto} objects
+#' @export
+geom_nba_backboard <- function(size_backboard = 1.3, ...) {
+  backboard <- nba_backboard_path()
+  list(
+    ggplot2::geom_path(ggplot2::aes(x = x, y = y, group = desc),
+                       data = backboard[[1]], size = size_backboard),
+    ggplot2::geom_path(ggplot2::aes(x = x, y = y, group = desc),
+                       data = backboard[[2]], ...),
+    ggplot2::geom_path(ggplot2::aes(x = x, y = y, group = desc),
+                       data = backboard[[3]], ...)
+  )
 }
 
 #' NBA Basketball Court Theme
