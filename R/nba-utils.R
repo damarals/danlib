@@ -1,3 +1,9 @@
+#' NBA Basketball Court Paths
+#'
+#' Get the paths to plot the basketball nba court
+#'
+#' @return a \code{data.frame}
+#' @export
 nba_court_path <- function() {
   circle_points <- function(center = c(0, 0), radius = 1, npoints = 360) {
     angles <- seq(0, 2 * pi, length.out = npoints)
@@ -5,7 +11,7 @@ nba_court_path <- function() {
                       y = center[2] + radius * sin(angles)))
   }
   width <- 50
-  height <- 94 / 2
+  height <- 94/2
   key_height <- 19
   inner_key_width <- 12
   outer_key_width <- 16
@@ -63,11 +69,24 @@ nba_court_path <- function() {
   rbind(court_points, foul_circle_top, foul_circle_bottom, hoop, restricted, three_point_line)
 }
 
+#' NBA Basketball Court GGplot2 Geom Path
+#'
+#' Get the geom_paths to plot the basketball nba court
+#' in a ggplot2 object
+#'
+#' @return a \code{ggproto} object
+#' @export
 geom_nba_court <- function(...) {
   ggplot2::geom_path(ggplot2::aes(x = x, y = y, group = desc),
                      data = nba_court_path(), ...)
 }
 
+#' NBA Basketball Court Theme
+#'
+#' Style clean and minimal to plot the basketball nba court
+#'
+#' @return a \code{list} of \code{ggproto} objects
+#' @export
 theme_nba_court <- function() {
   list(
     ggplot2::coord_fixed(ylim = c(0, 45), xlim = c(-25, 25)),
@@ -86,11 +105,24 @@ theme_nba_court <- function() {
   )
 }
 
+#' Round hexes
+#'
+#' Round hexes dynamically based on min and max values
+#'
+#' @return a \code{vector}
+#' @export
 hex_bounds <- function(x, binwidth) {
   c(plyr::round_any(min(x), binwidth, floor) - 1e-6,
     plyr::round_any(max(x), binwidth, ceiling) + 1e-6)
 }
 
+#' Hex Coordinates on NBA Basketball Court
+#'
+#' Get the coordinates of hexes to plot
+#' in the basketball nba court
+#'
+#' @return a \code{data.frame}
+#' @export
 calculate_hex_coords <- function(shots, binwidths) {
   xbnds <- hex_bounds(shots$loc_x, binwidths[1])
   xbins <- diff(xbnds)/binwidths[1]
@@ -143,7 +175,13 @@ calculate_hex_coords <- function(shots, binwidths) {
   dplyr::inner_join(hexbin_coords, hexbin_stats, by = "hexbin_id")
 }
 
-
+#' Hexbins from Shots
+#'
+#' Get the Hexbins stats from shots and league_averages
+#' objects of a NBA shotchart API
+#'
+#' @return a \code{data.frame}
+#' @export
 shots2hexbins <- function(shots, league_averages, binwidths = c(1.5, 1.5),
                           min_radius_factor = .25, fg_diff_limits = c(-0.15, 0.15),
                           fg_pct_limits = c(0.2, 0.7), pps_limits = c(0.5, 1.5)) {
